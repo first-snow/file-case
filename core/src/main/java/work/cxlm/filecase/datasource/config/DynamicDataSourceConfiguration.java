@@ -45,7 +45,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 @Slf4j
 @Configuration
-@AutoConfigureAfter(DataSourcePoolConfiguration.class)
 @AutoConfigureBefore(DataSourceAutoConfiguration.class)
 @Import({DynamicDataSourceConfiguration.DruidDataSourceBeanPostProcessor.class,
         DynamicDataSourceConfiguration.DataSourceRegistrar.class})
@@ -210,13 +209,16 @@ public class DynamicDataSourceConfiguration {
         return new DataSourceAdvisor(interceptor);
     }
 
+    /**
+     * 用于调整 Bean 的加载顺序，不调整可能导致循环依赖现象
+     */
     @Bean
     @ConditionalOnProperty(name = "datasource.override.initializer.enable", havingValue = "true", matchIfMissing = true)
     public DataSourceInitializerPostProcessor dataSourceInitializerPostProcessor() {
         return new DataSourceInitializerPostProcessor();
     }
 
-    static class DataSourceInitializerPostProcessor implements BeanPostProcessor, Ordered {
+    static class DataSourceInitializerPostProcessor implements Ordered {
 
         DataSourceInitializerPostProcessor() {
         }
@@ -224,16 +226,6 @@ public class DynamicDataSourceConfiguration {
         @Override
         public int getOrder() {
             return Ordered.HIGHEST_PRECEDENCE;
-        }
-
-        @Override
-        public Object postProcessBeforeInitialization(@NonNull Object bean, @NonNull String beanName) throws BeansException {
-            return bean;
-        }
-
-        @Override
-        public Object postProcessAfterInitialization(@NonNull Object bean, @NonNull String beanName) throws BeansException {
-            return bean;
         }
     }
 }

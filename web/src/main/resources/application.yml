@@ -1,6 +1,5 @@
 server:
   port: 8848
-
 mybatis:
   type-aliases-package: work.cxlm.filecase.domain
   # 可以拓展 SQL Type 到 Java Type 的映射。
@@ -39,3 +38,29 @@ datasource:
       validation-query: SELECT 1
       test-on-borrow: false
       test-on-return: false
+
+kafka:
+  config:
+    log:
+      bootstrap-servers:
+        - ip:port
+      consumer:
+        group-id: file-case-log-group
+        auto-commit-interval-ms: 2000
+        max-poll-records: 10
+        properties:
+          topics:
+            - file_case_topic_log
+          listener-names: fileCaseLogListener
+          interceptor.classes: work.cxlm.filecase.monitor.KafkaConsumerMonitor
+          enable-auto-generate-group-id: false
+
+      producer:
+        retries: 3
+        properties:
+          topics: file_case_topic_log
+          interceptor.classes: work.cxlm.filecase.monitor.KafkaProducerMonitor
+
+spring:
+  application:
+    name: file-case
