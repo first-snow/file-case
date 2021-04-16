@@ -5,8 +5,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.ConfigurableApplicationContext;
 import tk.mybatis.spring.annotation.MapperScan;
+import work.cxlm.filecase.util.SpringContextUtils;
 
 /**
  * create 2021/4/1 21:53

@@ -39,6 +39,38 @@ datasource:
       test-on-borrow: false
       test-on-return: false
 
+redis:
+  clients:
+    single:  # 单点集群
+      mode: SINGLE
+      address: redis://ip:port
+      password: ###
+      database: 0
+      codec-bean-name: jsonJacksonCodec
+      min-idle: 10
+      max-active: 100
+      max-idle-timeout: 1800_000   #最大空闲时间
+
+# jedis配置，为了兼容redisLock
+jedis:
+  timeout: 1000
+  pool:
+    max-total: 200
+    max-wait-millis: 2000
+    max-idle: 100
+    min-idle: 10
+    min-evictable-idle-time-millis: 1800000
+  master-s1:
+    host: ip
+    port: port
+    name: master-s1
+    password: ###
+  slave-s1:
+    host: ip
+    port: port
+    name: slave-s1
+    password: ###
+
 kafka:
   config:
     log:
@@ -64,3 +96,8 @@ kafka:
 spring:
   application:
     name: file-case
+  profiles:
+    configure:
+      includes:
+      - work.cxlm.filecase.redis.config.JedisConfig
+      - work.cxlm.filecase.redis.config.RedisAddConfig

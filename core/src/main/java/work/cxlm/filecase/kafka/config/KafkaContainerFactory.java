@@ -88,7 +88,7 @@ public class KafkaContainerFactory {
 
     // ============= PRIVATE METHODS ==================
 
-    @SuppressWarnings("rawtypes")
+    @SuppressWarnings("rawtypes, unchecked")
     private AbstractBeanDefinition initContainerFactory(Map.Entry<String, KafkaProperties> entry, boolean defaultFactory) {
         KafkaProperties kafkaProperties = entry.getValue();
         kafkaProperties.getConsumer().setClientId(null);
