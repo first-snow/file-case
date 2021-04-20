@@ -40,6 +40,7 @@ datasource:
       test-on-return: false
 
 redis:
+  default-name: single
   clients:
     single:  # 单点集群
       mode: SINGLE
@@ -101,3 +102,11 @@ spring:
       includes:
       - work.cxlm.filecase.redis.config.JedisConfig
       - work.cxlm.filecase.redis.config.RedisAddConfig
+      - work.cxlm.filecase.redis.config.RedisConfiguration
+      - work.cxlm.filecase.cache.config.MultiCacheConfiguration
+
+cache:
+  layers:
+    # 越靠上的越接近 DB，编号越小
+    - redis
+    - guava

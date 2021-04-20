@@ -21,6 +21,7 @@ import java.util.Map;
 public class RedisProperties {
 
     private Map<String, ClientProperties> clients;
+    private String defaultClient;
 
     @Data
     public static class ClientProperties {

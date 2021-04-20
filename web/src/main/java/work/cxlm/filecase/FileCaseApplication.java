@@ -6,6 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
 import tk.mybatis.spring.annotation.MapperScan;
 import work.cxlm.filecase.util.SpringContextUtils;
 
@@ -15,6 +16,9 @@ import work.cxlm.filecase.util.SpringContextUtils;
  * @author Chiru
  */
 @SpringBootApplication(scanBasePackages = "work.cxlm.filecase")
+@ComponentScan(basePackages = {
+        "work.cxlm.filecase.util",
+})
 @MapperScan(basePackages = "work.cxlm.filecase.dao.mapper")
 @EnableCaching(proxyTargetClass = true)
 @Slf4j

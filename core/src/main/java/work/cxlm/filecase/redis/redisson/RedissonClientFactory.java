@@ -25,6 +25,8 @@ public class RedissonClientFactory {
         this.applicationContext = context;
     }
 
+    // 下面的方法通过反射调用
+
     public RedissonClient createClient() {
         Assert.isTrue(properties.getClients().containsKey(key), "配置不存在: " + key);
         return new RedissonClientBuilder(key, properties.getClients().get(key), applicationContext).build();
@@ -39,4 +41,5 @@ public class RedissonClientFactory {
         Assert.isTrue(properties.getClients().containsKey(key), "配置不存在: " + key);
         return new RedissonClientBuilder(key, properties.getClients().get(key), applicationContext).buildRxClient();
     }
+
 }

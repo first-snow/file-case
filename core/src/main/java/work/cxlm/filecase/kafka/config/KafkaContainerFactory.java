@@ -108,20 +108,20 @@ public class KafkaContainerFactory {
         }
         getBeanFactory().registerBeanDefinition(beanName, beanDefinitionBuilder.getBeanDefinition());
         // 拷贝参数
-        KafkaProperties.Listener listener = kafkaProperties.getListener();
+        KafkaProperties.Listener listenerProperties = kafkaProperties.getListener();
         ConcurrentKafkaListenerContainerFactory concurrentKafkaListenerContainerFactory = (ConcurrentKafkaListenerContainerFactory) applicationContext.getBean(beanName);
         ContainerProperties factoryContainerProperties = concurrentKafkaListenerContainerFactory.getContainerProperties();
         if (kafkaProperties.getConsumer() != null) {
             factoryContainerProperties.setGroupId(kafkaProperties.getConsumer().getGroupId());
         }
-        if (null != listener.getAckMode()) {
-            factoryContainerProperties.setAckMode(listener.getAckMode());
+        if (null != listenerProperties.getAckMode()) {
+            factoryContainerProperties.setAckMode(listenerProperties.getAckMode());
         }
-        if (null != listener.getAckCount()) {
-            factoryContainerProperties.setAckCount(listener.getAckCount());
+        if (null != listenerProperties.getAckCount()) {
+            factoryContainerProperties.setAckCount(listenerProperties.getAckCount());
         }
-        if (null != listener.getAckTime()) {
-            factoryContainerProperties.setAckTime(listener.getAckTime().toMillis());
+        if (null != listenerProperties.getAckTime()) {
+            factoryContainerProperties.setAckTime(listenerProperties.getAckTime().toMillis());
         }
         if (KafkaPropertiesReader.isBatchListener(kafkaProperties)) {
             concurrentKafkaListenerContainerFactory.setBatchListener(true);

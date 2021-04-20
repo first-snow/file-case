@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Jedis 配置默认不生效，需要在 `spring.profiles.configure.includes` 中手动添加开启
+ * 在 `spring.profiles.configure.includes` 中手动添加本类后相关配置才会生效
  * 配置类，补充 DsLock 所需 Bean
  *
  * @author Chiru
