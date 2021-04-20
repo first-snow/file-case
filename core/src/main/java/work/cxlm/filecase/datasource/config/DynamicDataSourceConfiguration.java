@@ -157,6 +157,7 @@ public class DynamicDataSourceConfiguration {
             BeanDefinition bd = new GenericBeanDefinition();
             bd.setFactoryBeanName(dataSourceFactoryBeanName);
             bd.setFactoryMethodName("getDataSource");
+
             registry.registerBeanDefinition(DataSourceConst.DATA_SOURCE_CAMEL, bd);
         }
     }
